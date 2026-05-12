@@ -82,7 +82,7 @@
                     <GenericTile
                         header="Critical Roles"
                         subheader="SAP_ALL · Firefighter · Wildcards"
-                        press=".onNavToCritical"
+                        press=".onNavTo"
                         class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
                         frameType="TwoByOne">
                         <tileContent>
@@ -100,7 +100,7 @@
                     <GenericTile
                         header="Compliance"
                         subheader="3 components outdated"
-                        press=".onNavToCompliance"
+                        press=".onNavTo"
                         class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
                         frameType="TwoByOne">
                         <tileContent>
@@ -155,7 +155,7 @@
                     </headerToolbar>
                     <content>
                         <VBox class="sapUiSmallMargin">
-                            <BusyIndicator visible="{appState>/execSummaryLoading}" size="Small"/>
+                            <BusyIndicator visible="{appState>/execSummaryLoading}" size="1rem"/>
                             <Text
                                 visible="{= !${appState>/execSummaryLoading} &amp;&amp; !${appState>/execSummary} }"
                                 text="Click Generate to produce a CISO-ready executive briefing with top 3 priorities for this scan window."
@@ -188,7 +188,7 @@
                     </headerToolbar>
                     <content>
                         <VBox class="sapUiSmallMargin">
-                            <BusyIndicator visible="{appState>/triageLoading}" size="Small"/>
+                            <BusyIndicator visible="{appState>/triageLoading}" size="1rem"/>
                             <Text
                                 visible="{= !${appState>/triageLoading} &amp;&amp; !${appState>/triageInsights} }"
                                 text="Group 18 open violations into 3–4 actionable themes with root cause analysis."/>

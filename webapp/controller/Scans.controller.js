@@ -20,6 +20,10 @@ sap.ui.define([
 
         onExport: function () {
             this.showToast("Exporting scan history CSV…");
+        },
+
+        onPromoteToTest: function () {
+            this.showToast("Transport request created · TMS-2026-031 · Awaiting approval");
         }
     });
 });

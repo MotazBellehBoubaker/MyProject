@@ -83,6 +83,22 @@ sap.ui.define([
             this.navTo("violations");
         },
 
+        onNavTo: function (oEvent) {
+            // Generic tile nav — reads key from tile header text
+            var sHeader = oEvent.getSource().getHeader();
+            var mMap = {
+                "Critical Roles": "critical",
+                "Compliance":      "compliance",
+                "Open Violations": "violations",
+                "System Risk Score":"violations"
+            };
+            var sRoute = mMap[sHeader] || "overview";
+            this.navTo(sRoute);
+        },
+
+        onNavToCritical: function () { this.navTo("critical"); },
+        onNavToCompliance: function () { this.navTo("compliance"); },
+
         onViewAllUsers: function () {
             this.navTo("users");
         },

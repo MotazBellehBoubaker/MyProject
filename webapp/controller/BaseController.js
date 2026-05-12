@@ -2,11 +2,14 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/routing/History",
     "sap/m/MessageToast",
-    "sap/m/MessageBox"
-], function (Controller, History, MessageToast, MessageBox) {
+    "sap/m/MessageBox",
+    "sentinel/security/model/formatter"
+], function (Controller, History, MessageToast, MessageBox, formatter) {
     "use strict";
 
     return Controller.extend("sentinel.security.controller.BaseController", {
+
+        formatter: formatter,
 
         getRouter: function () {
             return this.getOwnerComponent().getRouter();
