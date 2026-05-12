@@ -14,13 +14,12 @@
         </customHeader>
         <content>
             <VBox class="sapUiMediumMargin">
-                <l:Grid defaultSpan="L6 M6 S12" hSpacing="1" vSpacing="1">
+                
 
                     <!-- SAP S/4HANA Connection -->
                     <Panel headerText="SAP S/4HANA Connection · BTP Destination Service">
                         <content>
-                            <f:SimpleForm layout="ResponsiveGridLayout" class="sapUiSmallMargin">
-                                <f:content>
+                            <VBox class="sapUiSmallMargin">
                                     <Label text="Destination Name"/>
                                     <Text text="{settings>/destination/name}" class="sentinelMono"/>
                                     <Label text="Endpoint URL"/>
@@ -34,8 +33,7 @@
                                         text="Connected"
                                         state="Success"
                                         icon="{path: 'settings>/destination/connected', formatter: '.formatter.connectionIcon'}"/>
-                                </f:content>
-                            </f:SimpleForm>
+                        </VBox>
                             <Toolbar style="padding: 0 1rem 1rem">
                                 <Button
                                     text="{= ${settings>/destination/testing} ? 'Testing…' : 'Test Connection' }"
@@ -50,16 +48,14 @@
                     <!-- Scan Schedule -->
                     <Panel headerText="Scan Schedule · SAP Job Scheduling Service">
                         <content>
-                            <f:SimpleForm layout="ResponsiveGridLayout" class="sapUiSmallMargin">
-                                <f:content>
+                            <VBox class="sapUiSmallMargin">
                                     <Label text="Cron Expression"/>
                                     <Input value="{settings>/schedule/cron}" class="sentinelMono"/>
                                     <Label text="Excessive Privilege Threshold (roles)"/>
                                     <Input value="{settings>/schedule/threshold}" type="Number"/>
                                     <Label text="Compliance Alert Threshold (%)"/>
                                     <Input value="{settings>/schedule/complianceAlert}" type="Number"/>
-                                </f:content>
-                            </f:SimpleForm>
+                        </VBox>
                             <Toolbar style="padding: 0 1rem 1rem">
                                 <Button text="Save Settings" type="Emphasized" press=".onSaveSchedule"/>
                             </Toolbar>
@@ -108,8 +104,7 @@
                     <!-- XSUAA -->
                     <Panel headerText="XSUAA &amp; Authentication · SAP BTP IAM">
                         <content>
-                            <f:SimpleForm layout="ResponsiveGridLayout" class="sapUiSmallMargin">
-                                <f:content>
+                            <VBox class="sapUiSmallMargin">
                                     <Label text="Service Plan"/>   <Text text="Application"/>
                                     <Label text="Token URL"/>      <Text text="https://company.auth.eu10.hana.ondemand.com" class="sentinelMono sapUiSmallText"/>
                                     <Label text="Scopes"/>
@@ -119,12 +114,11 @@
                                     </HBox>
                                     <Label text="Status"/>
                                     <ObjectStatus text="Configured" state="Success" icon="sap-icon://accept"/>
-                                </f:content>
-                            </f:SimpleForm>
+                        </VBox>
                         </content>
                     </Panel>
 
-                </l:Grid>
+                
             </VBox>
         </content>
     </Page>

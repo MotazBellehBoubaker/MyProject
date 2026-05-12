@@ -1,13 +1,9 @@
-/* Sentinel – Custom CSS
-   SAP Horizon theme overrides and project-specific styles */
+/* Sentinel – Custom CSS */
 
-/* ── Mono font for IDs, codes, timestamps ── */
 .sentinelMono {
     font-family: 'Courier New', 'Lucida Console', monospace !important;
     font-size: 0.875rem !important;
 }
-
-/* ── Role/ID chip ── */
 .sentinelChip {
     display: inline-block;
     background: var(--sapField_Background, #f5f6f7);
@@ -15,53 +11,52 @@
     border-radius: 4px;
     padding: 1px 6px;
 }
-
-/* ── Page body ── */
 .sentinelPage {
     background: var(--sapBackgroundColor, #f5f6f7);
 }
-
-/* ── Co-pilot bubbles ── */
+/* Profile popover divider */
+.sentinelDivider {
+    height: 1px;
+    background: var(--sapContent_ForegroundBorderColor, #d9dbdd);
+    width: 100%;
+    margin: 4px 0 8px 0;
+}
+/* Co-pilot bubbles */
 .sentinelUserBubble {
     background: var(--sapButton_Emphasized_Background, #0070f2) !important;
-    border-radius: 10px 0 10px 10px !important;
-    max-width: 320px;
+    border-radius: 12px 0 12px 12px !important;
+    padding: 10px 14px !important;
+    max-width: 340px;
 }
-
+.sentinelUserBubble .sapMFT,
 .sentinelUserBubble .sapMText {
     color: white !important;
 }
-
 .sentinelBotBubble {
-    border-radius: 0 10px 10px 10px !important;
-    max-width: 340px;
+    background: var(--sapBackgroundColor, #f5f6f7) !important;
+    border: 1px solid var(--sapContent_ForegroundBorderColor, #d9dbdd) !important;
+    border-radius: 0 12px 12px 12px !important;
+    padding: 10px 14px !important;
+    max-width: 360px;
 }
-
-/* ── Suggestion buttons ── */
+/* Suggestion buttons */
 .sentinelSuggBtn.sapMBtn .sapMBtnInner {
     border-radius: 14px !important;
     border: 1px solid var(--sapField_BorderColor, #d9dbdd) !important;
     font-size: 0.75rem !important;
-    padding: 0.25rem 0.75rem !important;
+    padding: 0.2rem 0.8rem !important;
 }
-
 .sentinelSuggBtn.sapMBtn:hover .sapMBtnInner {
-    background: var(--sapButton_Emphasized_Background, #e8f2ff) !important;
-    border-color: var(--sapButton_Emphasized_Background, #0070f2) !important;
+    background: #e8f2ff !important;
+    border-color: #0070f2 !important;
+    color: #0070f2 !important;
 }
-
-/* ── Pipeline stage card ── */
+/* Pipeline stage */
 .sentinelPipelineStage {
-    min-width: 80px;
+    min-width: 72px;
     text-align: center;
 }
-
-/* ── ToolPage side nav width ── */
-.sapTntToolPage .sapTntSideNavigation {
-    min-width: 200px;
-}
-
-/* ── GenericTile compact ── */
+/* Compact GenericTile */
 .sapMGT {
-    min-width: 150px !important;
+    min-width: 140px !important;
 }

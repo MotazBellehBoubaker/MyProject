@@ -76,8 +76,7 @@
                 <!-- User details form -->
                 <Panel headerText="User Details" expandable="true" expanded="true" class="sapUiSmallMarginBottom">
                     <content>
-                        <f:SimpleForm layout="ResponsiveGridLayout" columnsL="2" columnsM="2" class="sapUiSmallMargin">
-                            <f:content>
+                        <VBox class="sapUiSmallMargin">
                                 <Label text="User ID"/>         <Text text="{userDetail>/user/id}" class="sentinelMono"/>
                                 <Label text="Full Name"/>       <Text text="{userDetail>/user/name}"/>
                                 <Label text="Department"/>      <Text text="{userDetail>/user/dept}"/>
@@ -97,8 +96,7 @@
                                     displayValue="{userDetail>/user/riskScore}"
                                     width="200px"
                                     state="{path: 'userDetail>/user/riskScore', formatter: '.formatter.riskScoreState'}"/>
-                            </f:content>
-                        </f:SimpleForm>
+                        </VBox>
                     </content>
                 </Panel>
 

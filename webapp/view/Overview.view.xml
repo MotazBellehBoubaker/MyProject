@@ -2,59 +2,56 @@
     controllerName="sentinel.security.controller.Overview"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-    xmlns:l="sap.ui.layout"
-    xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core"
-    xmlns:unified="sap.ui.unified">
+    xmlns:core="sap.ui.core">
 
-    <Page
-        title="Security Posture · Overview"
-        titleLevel="H3"
-        showNavButton="false"
-        class="sentinelPage">
-
+    <Page showNavButton="false" class="sentinelPage">
         <customHeader>
             <Bar>
                 <contentLeft>
-                    <Title text="Security Posture · Overview" level="H4"/>
+                    <Title text="Security Posture Overview" level="H4"/>
+                    <ObjectStatus
+                        id="scanStatus"
+                        text="Last scan: SC-2026-031 · 14m ago"
+                        state="Success"
+                        icon="sap-icon://accept"
+                        class="sapUiSmallMarginBegin"/>
                 </contentLeft>
                 <contentRight>
-                    <Button text="Export"        icon="sap-icon://download" press=".onExportOverview"/>
-                    <Button text="Trigger Scan"  icon="sap-icon://play"     press=".onTriggerScan" type="Emphasized"
-                            enabled="{= !${appState>/scanning} }"/>
+                    <Button text="Export" icon="sap-icon://download" press=".onExportOverview"/>
+                    <Button
+                        text="{= ${appState>/scanning} ? 'Scanning...' : 'Trigger Scan' }"
+                        icon="{= ${appState>/scanning} ? 'sap-icon://refresh' : 'sap-icon://play' }"
+                        type="Emphasized"
+                        press=".onTriggerScan"
+                        enabled="{= !${appState>/scanning} }"
+                        class="sapUiSmallMarginBegin"/>
                 </contentRight>
             </Bar>
         </customHeader>
 
         <content>
-
-            <!-- Scan progress bar -->
+            <!-- Scan progress -->
             <ProgressIndicator
                 visible="{appState>/scanning}"
-                percentValue="{= ${appState>/scanProgress} * 100}"
-                displayValue="{= 'Scanning ' + Math.round(${appState>/scanProgress} * 100) + '%'}"
+                percentValue="{= ${appState>/scanProgress} * 100 }"
+                displayValue="{= 'Scanning ' + Math.round(${appState>/scanProgress} * 100) + '%' }"
                 state="Information"
                 class="sapUiNoMargin"/>
 
             <VBox class="sapUiMediumMargin">
 
-                <!-- KPI Tiles -->
+                <!-- KPI Row -->
                 <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
                     <GenericTile
                         header="System Risk Score"
-                        subheader="Lower is better · 30-day"
-                        press=".onViewAllViolations"
-                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-                        frameType="TwoByOne">
+                        subheader="30-day window · lower is better"
+                        press=".onNavTo"
+                        frameType="TwoByOne"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                         <tileContent>
-                            <TileContent unit="/ 100">
+                            <TileContent footer="↑ +4 since last scan">
                                 <content>
-                                    <NumericContent
-                                        value="78"
-                                        indicator="Up"
-                                        valueColor="Critical"
-                                        scale=""
-                                        withMargin="false"/>
+                                    <NumericContent value="78" indicator="Up" valueColor="Critical" withMargin="false"/>
                                 </content>
                             </TileContent>
                         </tileContent>
@@ -62,18 +59,14 @@
 
                     <GenericTile
                         header="Open Violations"
-                        subheader="7 High · 8 Med · 3 Low"
+                        subheader="7 High · 8 Medium · 3 Low"
                         press=".onViewAllViolations"
-                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-                        frameType="TwoByOne">
+                        frameType="TwoByOne"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                         <tileContent>
-                            <TileContent>
+                            <TileContent footer="↑ +3 new this scan">
                                 <content>
-                                    <NumericContent
-                                        value="18"
-                                        indicator="Up"
-                                        valueColor="Critical"
-                                        withMargin="false"/>
+                                    <NumericContent value="18" indicator="Up" valueColor="Critical" withMargin="false"/>
                                 </content>
                             </TileContent>
                         </tileContent>
@@ -81,17 +74,14 @@
 
                     <GenericTile
                         header="Critical Roles"
-                        subheader="SAP_ALL · Firefighter · Wildcards"
-                        press=".onNavTo"
-                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-                        frameType="TwoByOne">
+                        subheader="SAP_ALL · Firefighter · Wildcard"
+                        press=".onNavToCritical"
+                        frameType="TwoByOne"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                         <tileContent>
-                            <TileContent>
+                            <TileContent footer="2 SAP_ALL · 2 Firefighter">
                                 <content>
-                                    <NumericContent
-                                        value="4"
-                                        valueColor="Critical"
-                                        withMargin="false"/>
+                                    <NumericContent value="4" valueColor="Critical" withMargin="false"/>
                                 </content>
                             </TileContent>
                         </tileContent>
@@ -100,17 +90,13 @@
                     <GenericTile
                         header="Compliance"
                         subheader="3 components outdated"
-                        press=".onNavTo"
-                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-                        frameType="TwoByOne">
+                        press=".onNavToCompliance"
+                        frameType="TwoByOne"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                         <tileContent>
-                            <TileContent unit="%">
+                            <TileContent unit="%" footer="↑ +2% vs last scan">
                                 <content>
-                                    <NumericContent
-                                        value="82"
-                                        indicator="Up"
-                                        valueColor="Good"
-                                        withMargin="false"/>
+                                    <NumericContent value="82" indicator="Up" valueColor="Good" withMargin="false"/>
                                 </content>
                             </TileContent>
                         </tileContent>
@@ -118,35 +104,131 @@
 
                     <GenericTile
                         header="Users Scanned"
-                        subheader="2 locked · 4,212 active"
-                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom"
-                        frameType="TwoByOne">
+                        subheader="4,212 active · 2 locked"
+                        frameType="TwoByOne"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                         <tileContent>
-                            <TileContent>
+                            <TileContent footer="87 with excessive privileges">
                                 <content>
-                                    <NumericContent
-                                        value="4218"
-                                        valueColor="Neutral"
-                                        withMargin="false"/>
+                                    <NumericContent value="4218" valueColor="Neutral" withMargin="false"/>
                                 </content>
                             </TileContent>
                         </tileContent>
                     </GenericTile>
                 </HBox>
 
-                <!-- AI Executive Briefing -->
-                <Panel
-                    headerText="Executive Briefing (AI)"
-                    expandable="true"
-                    expanded="true"
-                    class="sapUiSmallMarginBottom">
+                <!-- Charts Row -->
+                <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+
+                    <!-- Risk Trend Chart (SVG) -->
+                    <Panel headerText="Risk Score Trend - Last 30 Scans" class="sapUiSmallMarginEnd" width="55%">
+                        <content>
+                            <VBox class="sapUiSmallMargin">
+                                <HTML content="&lt;svg width='100%' height='160' viewBox='0 0 600 160' preserveAspectRatio='none' style='display:block'&gt;
+                                &lt;defs&gt;
+                                    &lt;linearGradient id='rg' x1='0' y1='0' x2='0' y2='1'&gt;
+                                        &lt;stop offset='0%' stop-color='#0070f2' stop-opacity='0.2'/&gt;
+                                        &lt;stop offset='100%' stop-color='#0070f2' stop-opacity='0'/&gt;
+                                    &lt;/linearGradient&gt;
+                                    &lt;linearGradient id='vg' x1='0' y1='0' x2='0' y2='1'&gt;
+                                        &lt;stop offset='0%' stop-color='#bb0000' stop-opacity='0.15'/&gt;
+                                        &lt;stop offset='100%' stop-color='#bb0000' stop-opacity='0'/&gt;
+                                    &lt;/linearGradient&gt;
+                                &lt;/defs&gt;
+                                &lt;line x1='0' y1='40' x2='600' y2='40' stroke='#eee' stroke-width='1'/&gt;
+                                &lt;line x1='0' y1='80' x2='600' y2='80' stroke='#eee' stroke-width='1'/&gt;
+                                &lt;line x1='0' y1='120' x2='600' y2='120' stroke='#eee' stroke-width='1'/&gt;
+                                &lt;text x='4' y='38' font-size='9' fill='#aaa'&gt;100&lt;/text&gt;
+                                &lt;text x='4' y='78' font-size='9' fill='#aaa'&gt;75&lt;/text&gt;
+                                &lt;text x='4' y='118' font-size='9' fill='#aaa'&gt;50&lt;/text&gt;
+                                &lt;polygon points='20,118 60,110 100,114 140,100 180,105 220,90 260,95 300,80 340,85 380,70 420,75 460,65 500,60 540,55 580,48 580,160 20,160' fill='url(#rg)'/&gt;
+                                &lt;polyline points='20,118 60,110 100,114 140,100 180,105 220,90 260,95 300,80 340,85 380,70 420,75 460,65 500,60 540,55 580,48' fill='none' stroke='#0070f2' stroke-width='2.5' stroke-linejoin='round'/&gt;
+                                &lt;polygon points='20,135 60,128 100,132 140,120 180,124 220,112 260,116 300,104 340,108 380,96 420,100 460,88 500,84 540,78 580,72 580,160 20,160' fill='url(#vg)'/&gt;
+                                &lt;polyline points='20,135 60,128 100,132 140,120 180,124 220,112 260,116 300,104 340,108 380,96 420,100 460,88 500,84 540,78 580,72' fill='none' stroke='#bb0000' stroke-width='1.8' stroke-linejoin='round' stroke-dasharray='0'/&gt;
+                                &lt;circle cx='580' cy='48' r='5' fill='#0070f2'/&gt;
+                                &lt;circle cx='580' cy='72' r='4' fill='#bb0000'/&gt;
+                                &lt;/svg&gt;"/>
+                                <HBox class="sapUiTinyMarginTop">
+                                    <HBox alignItems="Center" class="sapUiSmallMarginEnd">
+                                        <HTML content="&lt;span style='width:14px;height:3px;background:#0070f2;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
+                                        <Text text="Risk Score" class="sapUiSmallText"/>
+                                    </HBox>
+                                    <HBox alignItems="Center">
+                                        <HTML content="&lt;span style='width:14px;height:3px;background:#bb0000;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
+                                        <Text text="Violations" class="sapUiSmallText"/>
+                                    </HBox>
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </Panel>
+
+                    <!-- Compliance Gauge -->
+                    <Panel headerText="Compliance Score" class="sapUiSmallMarginEnd" width="22%">
+                        <content>
+                            <VBox alignItems="Center" class="sapUiSmallMargin">
+                                <HTML content="&lt;svg width='160' height='110' viewBox='0 0 160 110'&gt;
+                                &lt;defs&gt;
+                                    &lt;linearGradient id='gg' x1='0%' y1='0%' x2='100%' y2='0%'&gt;
+                                        &lt;stop offset='0%' stop-color='#bb0000'/&gt;
+                                        &lt;stop offset='50%' stop-color='#e76500'/&gt;
+                                        &lt;stop offset='100%' stop-color='#188918'/&gt;
+                                    &lt;/linearGradient&gt;
+                                &lt;/defs&gt;
+                                &lt;path d='M20 90 A60 60 0 0 1 140 90' fill='none' stroke='#eee' stroke-width='14' stroke-linecap='round'/&gt;
+                                &lt;path d='M20 90 A60 60 0 0 1 140 90' fill='none' stroke='url(#gg)' stroke-width='14' stroke-linecap='round' stroke-dasharray='188.5' stroke-dashoffset='34'/&gt;
+                                &lt;text x='80' y='80' text-anchor='middle' font-size='26' font-weight='700' fill='#1d2d3e' font-family='Arial'&gt;82%&lt;/text&gt;
+                                &lt;text x='80' y='100' text-anchor='middle' font-size='10' fill='#888' font-family='Arial'&gt;Compliance Score&lt;/text&gt;
+                                &lt;text x='16' y='106' font-size='9' fill='#bb0000' font-family='Arial'&gt;0%&lt;/text&gt;
+                                &lt;text x='130' y='106' font-size='9' fill='#188918' font-family='Arial'&gt;100%&lt;/text&gt;
+                                &lt;/svg&gt;"/>
+                                <HBox class="sapUiTinyMarginTop">
+                                    <ObjectStatus text="7 Compliant" state="Success" class="sapUiSmallMarginEnd"/>
+                                    <ObjectStatus text="3 Outdated"  state="Warning"/>
+                                </HBox>
+                            </VBox>
+                        </content>
+                    </Panel>
+
+                    <!-- Violation breakdown donut -->
+                    <Panel headerText="Severity Breakdown" width="22%">
+                        <content>
+                            <VBox alignItems="Center" class="sapUiSmallMargin">
+                                <HTML content="&lt;svg width='130' height='130' viewBox='0 0 130 130'&gt;
+                                &lt;circle cx='65' cy='65' r='50' fill='none' stroke='#bb0000' stroke-width='22' stroke-dasharray='88 226' stroke-dashoffset='0'/&gt;
+                                &lt;circle cx='65' cy='65' r='50' fill='none' stroke='#e76500' stroke-width='22' stroke-dasharray='100 226' stroke-dashoffset='-88'/&gt;
+                                &lt;circle cx='65' cy='65' r='50' fill='none' stroke='#188918' stroke-width='22' stroke-dasharray='38 226' stroke-dashoffset='-188'/&gt;
+                                &lt;text x='65' y='60' text-anchor='middle' font-size='20' font-weight='700' fill='#1d2d3e' font-family='Arial'&gt;18&lt;/text&gt;
+                                &lt;text x='65' y='76' text-anchor='middle' font-size='10' fill='#888' font-family='Arial'&gt;total&lt;/text&gt;
+                                &lt;/svg&gt;"/>
+                                <VBox>
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <HTML content="&lt;span style='width:10px;height:10px;border-radius:50%;background:#bb0000;display:inline-block;margin-right:6px'&gt;&lt;/span&gt;"/>
+                                        <Text text="7 High" class="sapUiSmallText"/>
+                                    </HBox>
+                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                        <HTML content="&lt;span style='width:10px;height:10px;border-radius:50%;background:#e76500;display:inline-block;margin-right:6px'&gt;&lt;/span&gt;"/>
+                                        <Text text="8 Medium" class="sapUiSmallText"/>
+                                    </HBox>
+                                    <HBox alignItems="Center">
+                                        <HTML content="&lt;span style='width:10px;height:10px;border-radius:50%;background:#188918;display:inline-block;margin-right:6px'&gt;&lt;/span&gt;"/>
+                                        <Text text="3 Low" class="sapUiSmallText"/>
+                                    </HBox>
+                                </VBox>
+                            </VBox>
+                        </content>
+                    </Panel>
+                </HBox>
+
+                <!-- AI Briefing -->
+                <Panel class="sapUiSmallMarginBottom">
                     <headerToolbar>
                         <Toolbar>
+                            <core:Icon src="sap-icon://ai" color="Highlight" class="sapUiSmallMarginEnd"/>
                             <Title text="Executive Briefing" level="H5"/>
-                            <Label text="AI" class="sapUiSmallMarginBegin" design="Bold"/>
+                            <ObjectStatus text="AI-powered" state="Information" class="sapUiSmallMarginBegin"/>
                             <ToolbarSpacer/>
                             <Button
-                                text="{= ${appState>/execSummaryLoading} ? 'Generating…' : (${appState>/execSummary} ? 'Regenerate' : 'Generate') }"
+                                text="{= ${appState>/execSummaryLoading} ? 'Generating...' : (${appState>/execSummary} ? 'Regenerate' : 'Generate Briefing') }"
                                 icon="sap-icon://ai"
                                 type="Emphasized"
                                 press=".onGenerateBriefing"
@@ -156,31 +238,24 @@
                     <content>
                         <VBox class="sapUiSmallMargin">
                             <BusyIndicator visible="{appState>/execSummaryLoading}" size="1rem"/>
-                            <Text
-                                visible="{= !${appState>/execSummaryLoading} &amp;&amp; !${appState>/execSummary} }"
-                                text="Click Generate to produce a CISO-ready executive briefing with top 3 priorities for this scan window."
-                                class="sapUiSmallMarginBottom"/>
-                            <FormattedText
-                                visible="{= !${appState>/execSummaryLoading} &amp;&amp; !!${appState>/execSummary} }"
-                                htmlText="{appState>/execSummary}"
-                                class="sapUiSmallMarginBottom"/>
+                            <Text visible="{= !${appState>/execSummaryLoading} &amp;&amp; !${appState>/execSummary} }"
+                                text="Click Generate Briefing to produce a CISO-ready executive summary with top 3 priority actions for this scan window."/>
+                            <FormattedText visible="{= !${appState>/execSummaryLoading} &amp;&amp; !!${appState>/execSummary} }"
+                                htmlText="{appState>/execSummary}"/>
                         </VBox>
                     </content>
                 </Panel>
 
                 <!-- Smart Triage -->
-                <Panel
-                    headerText="Smart Triage (AI)"
-                    expandable="true"
-                    expanded="true"
-                    class="sapUiSmallMarginBottom">
+                <Panel class="sapUiSmallMarginBottom">
                     <headerToolbar>
                         <Toolbar>
+                            <core:Icon src="sap-icon://ai" color="Highlight" class="sapUiSmallMarginEnd"/>
                             <Title text="Smart Triage" level="H5"/>
-                            <Label text="AI" class="sapUiSmallMarginBegin" design="Bold"/>
+                            <ObjectStatus text="AI-powered" state="Information" class="sapUiSmallMarginBegin"/>
                             <ToolbarSpacer/>
                             <Button
-                                text="{= ${appState>/triageLoading} ? 'Analyzing…' : (${appState>/triageInsights} ? 'Re-cluster' : 'Cluster Violations') }"
+                                text="{= ${appState>/triageLoading} ? 'Analyzing...' : (${appState>/triageInsights} ? 'Re-cluster' : 'Cluster Violations') }"
                                 icon="sap-icon://ai"
                                 press=".onGenerateTriage"
                                 enabled="{= !${appState>/triageLoading} }"/>
@@ -189,29 +264,23 @@
                     <content>
                         <VBox class="sapUiSmallMargin">
                             <BusyIndicator visible="{appState>/triageLoading}" size="1rem"/>
-                            <Text
-                                visible="{= !${appState>/triageLoading} &amp;&amp; !${appState>/triageInsights} }"
-                                text="Group 18 open violations into 3–4 actionable themes with root cause analysis."/>
-                        <VBox visible="{= !${appState>/triageLoading} &amp;&amp; !!${appState>/triageInsights} }">
-                            <List
-                                items="{appState>/triageInsights}"
-                                showSeparators="None"
-                                backgroundDesign="Transparent">
+                            <Text visible="{= !${appState>/triageLoading} &amp;&amp; !${appState>/triageInsights} }"
+                                text="Group 18 open violations into actionable themes with root cause analysis and recommended actions."/>
+                            <List visible="{= !${appState>/triageLoading} &amp;&amp; !!${appState>/triageInsights} }"
+                                items="{appState>/triageInsights}" showSeparators="None" backgroundDesign="Transparent">
                                 <items>
                                     <CustomListItem>
                                         <Panel class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
                                             <content>
                                                 <VBox class="sapUiSmallMargin">
                                                     <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
-                                                        <ObjectStatus
-                                                            text="{appState>priority}"
-                                                            state="{path: 'appState>priority', formatter: '.formatter.severityState'}"/>
+                                                        <ObjectStatus text="{appState>priority}" state="{path: 'appState>priority', formatter: '.formatter.severityState'}"/>
                                                         <Text text="{appState>count} violations" class="sapUiSmallText"/>
                                                     </HBox>
                                                     <Title text="{appState>title}" level="H6" class="sapUiSmallMarginBottom"/>
                                                     <Label text="Root Cause" design="Bold"/>
                                                     <Text text="{appState>rootCause}" wrapping="true" class="sapUiSmallMarginBottom"/>
-                                                    <Label text="Action" design="Bold"/>
+                                                    <Label text="Recommended Action" design="Bold"/>
                                                     <Text text="{appState>action}" wrapping="true"/>
                                                 </VBox>
                                             </content>
@@ -220,46 +289,39 @@
                                 </items>
                             </List>
                         </VBox>
-                        </VBox>
                     </content>
                 </Panel>
 
-                <!-- Recent High Violations -->
-                <Panel headerText="Recent High-Severity Violations" expandable="true" expanded="true" class="sapUiSmallMarginBottom">
+                <!-- Recent Violations -->
+                <Panel class="sapUiSmallMarginBottom">
                     <headerToolbar>
                         <Toolbar>
                             <Title text="Recent High-Severity Violations" level="H5"/>
                             <ToolbarSpacer/>
-                            <Button text="View all →" type="Transparent" press=".onViewAllViolations"/>
+                            <Button text="View all" type="Transparent" press=".onViewAllViolations"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
-                        <Table
-                            items="{path: 'violations>/violations', filters: [{path: 'severity', operator: 'EQ', value1: 'High'}]}"
-                            growing="false"
-                            growingThreshold="5"
-                            mode="None">
+                        <Table items="{path: 'violations>/violations', filters: [{path: 'severity', operator: 'EQ', value1: 'High'}]}" growingThreshold="5" mode="None">
                             <columns>
                                 <Column width="9rem"><Text text="ID"/></Column>
-                                <Column><Text text="User"/></Column>
+                                <Column width="10rem"><Text text="User"/></Column>
                                 <Column><Text text="Conflicting Roles"/></Column>
-                                <Column width="6rem"><Text text="Severity"/></Column>
+                                <Column width="7rem"><Text text="Severity"/></Column>
                                 <Column width="9rem"><Text text="Detected"/></Column>
                             </columns>
                             <items>
-                                <ColumnListItem press=".onViolationPress" type="Navigation">
+                                <ColumnListItem press=".onViolationPress" type="Navigation"
+                                    highlight="{path: 'violations>severity', formatter: '.formatter.rowHighlight'}">
                                     <cells>
-                                        <ObjectIdentifier title="{violations>id}" class="sentinelMono"/>
-                                        <VBox>
-                                            <ObjectIdentifier title="{violations>userName}" text="{violations>userId}"/>
-                                        </VBox>
-                                        <HBox>
-                                            <ObjectStatus text="{violations>roleA}" class="sentinelMono"/>
+                                        <Text text="{violations>id}" class="sentinelMono"/>
+                                        <ObjectIdentifier title="{violations>userName}" text="{violations>userId}"/>
+                                        <HBox alignItems="Center">
+                                            <Text text="{violations>roleA}" class="sentinelMono sentinelChip"/>
                                             <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginBeginEnd"/>
-                                            <ObjectStatus text="{violations>roleB}" class="sentinelMono"/>
+                                            <Text text="{violations>roleB}" class="sentinelMono sentinelChip"/>
                                         </HBox>
-                                        <ObjectStatus
-                                            text="{violations>severity}"
+                                        <ObjectStatus text="{violations>severity}"
                                             state="{path: 'violations>severity', formatter: '.formatter.severityState'}"
                                             icon="{path: 'violations>severity', formatter: '.formatter.severityIcon'}"/>
                                         <Text text="{violations>detected}" class="sentinelMono"/>
@@ -270,41 +332,41 @@
                     </content>
                 </Panel>
 
-                <!-- Top Violators -->
-                <Panel headerText="Top Risk Users" expandable="true" expanded="true">
+                <!-- Top Risk Users -->
+                <Panel>
                     <headerToolbar>
                         <Toolbar>
                             <Title text="Top Risk Users" level="H5"/>
                             <ToolbarSpacer/>
-                            <Button text="View all →" type="Transparent" press=".onViewAllUsers"/>
+                            <Button text="View all" type="Transparent" press=".onViewAllUsers"/>
                         </Toolbar>
                     </headerToolbar>
                     <content>
-                        <List
-                            items="{path: 'users>/users', sorter: {path: 'riskScore', descending: true}}"
-                            growing="false"
-                            growingThreshold="5">
+                        <Table items="{path: 'users>/users', sorter: {path: 'riskScore', descending: true}}" growingThreshold="5" mode="None">
+                            <columns>
+                                <Column><Text text="User"/></Column>
+                                <Column width="8rem"><Text text="Department"/></Column>
+                                <Column width="14rem"><Text text="Risk Score"/></Column>
+                                <Column width="7rem"><Text text="Status"/></Column>
+                            </columns>
                             <items>
-                                <CustomListItem press=".onUserPress" type="Navigation">
-                                    <HBox alignItems="Center" class="sapUiSmallMargin">
-                                        <Avatar
-                                            initials="{users>initials}"
-                                            backgroundColor="Accent6"
-                                            displaySize="S"
-                                            class="sapUiSmallMarginEnd"/>
-                                        <VBox class="sapUiSmallMarginEnd" width="180px">
+                                <ColumnListItem press=".onUserPress" type="Navigation">
+                                    <cells>
+                                        <HBox alignItems="Center">
+                                            <Avatar initials="{users>initials}" backgroundColor="Accent6" displaySize="XS" class="sapUiSmallMarginEnd"/>
                                             <ObjectIdentifier title="{users>name}" text="{users>id}"/>
-                                            <Text text="{users>dept}" class="sapUiSmallText"/>
-                                        </VBox>
+                                        </HBox>
+                                        <Text text="{users>dept}"/>
                                         <ProgressIndicator
                                             percentValue="{users>riskScore}"
                                             displayValue="{users>riskScore}"
-                                            width="120px"
+                                            width="160px"
                                             state="{path: 'users>riskScore', formatter: '.formatter.riskScoreState'}"/>
-                                    </HBox>
-                                </CustomListItem>
+                                        <ObjectStatus text="{users>status}" state="{= ${users>status} === 'Active' ? 'Success' : 'Warning'}"/>
+                                    </cells>
+                                </ColumnListItem>
                             </items>
-                        </List>
+                        </Table>
                     </content>
                 </Panel>
 
