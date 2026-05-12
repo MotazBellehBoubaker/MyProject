@@ -31,9 +31,41 @@
 
                             <!-- Pipeline stages -->
                             <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom">
-                                <items>
-                                    <core:Fragment fragmentName="sentinel.security.fragment.PipelineStages" type="XML"/>
-                                </items>
+                                <Panel class="sentinelPipelineStage">
+                                    <content>
+                                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                                            <ObjectStatus text="Lint"   state="Success" icon="sap-icon://accept"/>
+                                            <Text text="18s" class="sentinelMono sapUiSmallText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                                <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginBeginEnd"/>
+                                <Panel class="sentinelPipelineStage">
+                                    <content>
+                                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                                            <ObjectStatus text="Test"   state="Success" icon="sap-icon://accept"/>
+                                            <Text text="44s" class="sentinelMono sapUiSmallText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                                <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginBeginEnd"/>
+                                <Panel class="sentinelPipelineStage">
+                                    <content>
+                                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                                            <ObjectStatus text="Build"  state="Success" icon="sap-icon://accept"/>
+                                            <Text text="52s" class="sentinelMono sapUiSmallText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                                <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginBeginEnd"/>
+                                <Panel class="sentinelPipelineStage">
+                                    <content>
+                                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                                            <ObjectStatus text="Deploy" state="Success" icon="sap-icon://accept"/>
+                                            <Text text="37s" class="sentinelMono sapUiSmallText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
                             </HBox>
 
                             <!-- Transport status -->

@@ -14,8 +14,21 @@ sap.ui.define([
         },
 
         onNavItemSelect: function (oEvent) {
-            var sKey = oEvent.getParameter("item").getKey();
-            this.navTo(sKey);
+            var oItem = oEvent.getParameter("item");
+            var sKey = oItem.getKey ? oItem.getKey() : oItem.getText();
+            var mKeyToRoute = {
+                "overview":   "overview",
+                "violations": "violations",
+                "users":      "users",
+                "critical":   "critical",
+                "compliance": "compliance",
+                "rules":      "rules",
+                "scans":      "scans",
+                "alerts":     "alerts",
+                "settings":   "settings"
+            };
+            var sRoute = mKeyToRoute[sKey];
+            if (sRoute) { this.navTo(sRoute); }
         },
 
         onSideNavToggle: function () {

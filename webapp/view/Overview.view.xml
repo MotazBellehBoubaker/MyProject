@@ -192,11 +192,34 @@
                             <Text
                                 visible="{= !${appState>/triageLoading} &amp;&amp; !${appState>/triageInsights} }"
                                 text="Group 18 open violations into 3–4 actionable themes with root cause analysis."/>
-                            <HBox visible="{= !${appState>/triageLoading} &amp;&amp; !!${appState>/triageInsights} }" wrap="Wrap">
+                        <VBox visible="{= !${appState>/triageLoading} &amp;&amp; !!${appState>/triageInsights} }">
+                            <List
+                                items="{appState>/triageInsights}"
+                                showSeparators="None"
+                                backgroundDesign="Transparent">
                                 <items>
-                                    <core:Fragment fragmentName="sentinel.security.fragment.TriageCard" type="XML"/>
+                                    <CustomListItem>
+                                        <Panel class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                                            <content>
+                                                <VBox class="sapUiSmallMargin">
+                                                    <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                                                        <ObjectStatus
+                                                            text="{appState>priority}"
+                                                            state="{path: 'appState>priority', formatter: '.formatter.severityState'}"/>
+                                                        <Text text="{appState>count} violations" class="sapUiSmallText"/>
+                                                    </HBox>
+                                                    <Title text="{appState>title}" level="H6" class="sapUiSmallMarginBottom"/>
+                                                    <Label text="Root Cause" design="Bold"/>
+                                                    <Text text="{appState>rootCause}" wrapping="true" class="sapUiSmallMarginBottom"/>
+                                                    <Label text="Action" design="Bold"/>
+                                                    <Text text="{appState>action}" wrapping="true"/>
+                                                </VBox>
+                                            </content>
+                                        </Panel>
+                                    </CustomListItem>
                                 </items>
-                            </HBox>
+                            </List>
+                        </VBox>
                         </VBox>
                     </content>
                 </Panel>
