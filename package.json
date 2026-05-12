@@ -10,7 +10,6 @@
     "lint": "eslint webapp"
   },
   "devDependencies": {
-    "@ui5/cli": "^3.11.1",
-    "ui5-middleware-livereload": "^3.0.2"
+    "@ui5/cli": "^3.11.1"
   }
 }
