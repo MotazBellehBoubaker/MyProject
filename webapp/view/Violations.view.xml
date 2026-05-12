@@ -1,0 +1,207 @@
+<mvc:View
+    controllerName="sentinel.security.controller.Violations"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout">
+
+    <Page showNavButton="false" class="sentinelPage">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Title text="Segregation of Duties Violations" level="H4"/>
+                </contentLeft>
+                <contentRight>
+                    <Button text="Export CSV" icon="sap-icon://download" press=".onExportCSV"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <VBox class="sapUiMediumMargin">
+
+                <!-- Search + Filters -->
+                <Toolbar class="sapUiSmallMarginBottom">
+                    <SearchField
+                        id="violationSearch"
+                        placeholder="Search users, roles, risks…"
+                        width="280px"
+                        search=".onSearch"
+                        liveChange=".onSearch"/>
+                    <ToolbarSpacer/>
+                    <Label text="Severity:"/>
+                    <Select id="severitySelect" change=".onSeverityFilterChange">
+                        <items>
+                            <core:Item key="All"    text="All Severities"/>
+                            <core:Item key="High"   text="High"/>
+                            <core:Item key="Medium" text="Medium"/>
+                            <core:Item key="Low"    text="Low"/>
+                        </items>
+                    </Select>
+                    <Label text="Status:" class="sapUiSmallMarginBegin"/>
+                    <Select id="statusSelect" change=".onStatusFilterChange">
+                        <items>
+                            <core:Item key="All"          text="All Statuses"/>
+                            <core:Item key="Open"         text="Open"/>
+                            <core:Item key="Acknowledged" text="Acknowledged"/>
+                            <core:Item key="Resolved"     text="Resolved"/>
+                        </items>
+                    </Select>
+                </Toolbar>
+
+                <l:Splitter orientation="Horizontal" height="calc(100vh - 200px)">
+
+                    <!-- Violations Table -->
+                    <l:content>
+                        <l:SplitterLayoutData size="65%"/>
+                        <Table
+                            id="violationsTable"
+                            items="{violations>/violations}"
+                            mode="SingleSelectMaster"
+                            selectionChange=".onViolationSelect"
+                            growing="true"
+                            growingThreshold="15"
+                            sticky="ColumnHeaders">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title text="Violations" level="H5"/>
+                                    <ToolbarSpacer/>
+                                    <Text text="{= ${violations>/violations}.length + ' items'}"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column width="8rem">  <Text text="ID"/>            </Column>
+                                <Column width="6rem">  <Text text="Severity"/>      </Column>
+                                <Column>               <Text text="User"/>          </Column>
+                                <Column>               <Text text="Conflicting Roles"/></Column>
+                                <Column width="6rem">  <Text text="Status"/>        </Column>
+                                <Column width="9rem">  <Text text="Detected"/>      </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem
+                                    highlight="{path: 'violations>severity', formatter: '.formatter.rowHighlight'}"
+                                    type="Active">
+                                    <cells>
+                                        <Text text="{violations>id}" class="sentinelMono"/>
+                                        <ObjectStatus
+                                            text="{violations>severity}"
+                                            state="{path: 'violations>severity', formatter: '.formatter.severityState'}"
+                                            icon="{path: 'violations>severity', formatter: '.formatter.severityIcon'}"/>
+                                        <VBox>
+                                            <ObjectIdentifier title="{violations>userName}" text="{violations>userId}"/>
+                                        </VBox>
+                                        <HBox alignItems="Center">
+                                            <Text text="{violations>roleA}" class="sentinelMono sentinelChip"/>
+                                            <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginBeginEnd sapUiSmallText"/>
+                                            <Text text="{violations>roleB}" class="sentinelMono sentinelChip"/>
+                                        </HBox>
+                                        <ObjectStatus
+                                            text="{violations>status}"
+                                            state="{path: 'violations>status', formatter: '.formatter.violationStatusState'}"/>
+                                        <Text text="{violations>detected}" class="sentinelMono sapUiSmallText"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </l:content>
+
+                    <!-- Detail Panel -->
+                    <l:content>
+                        <l:SplitterLayoutData size="35%"/>
+                        <ScrollContainer vertical="true" height="100%">
+                            <!-- Empty state -->
+                            <VBox
+                                visible="{= !${detail>/selectedViolation} }"
+                                alignItems="Center"
+                                justifyContent="Center"
+                                height="300px">
+                                <core:Icon src="sap-icon://inspection" size="3rem" color="Neutral"/>
+                                <Text text="Select a violation to see details" class="sapUiSmallMarginTop" wrapping="false"/>
+                            </VBox>
+
+                            <!-- Detail content -->
+                            <VBox visible="{= !!${detail>/selectedViolation} }">
+                                <Panel class="sapUiNoMarginTop">
+                                    <headerToolbar>
+                                        <Toolbar>
+                                            <Title text="{detail>/selectedViolation/id}" class="sentinelMono" level="H5"/>
+                                            <ToolbarSpacer/>
+                                            <ObjectStatus
+                                                text="{detail>/selectedViolation/severity}"
+                                                state="{path: 'detail>/selectedViolation/severity', formatter: '.formatter.severityState'}"/>
+                                        </Toolbar>
+                                    </headerToolbar>
+                                    <content>
+                                        <VBox class="sapUiSmallMargin">
+                                            <Title text="{detail>/selectedViolation/risk}" level="H5" class="sapUiSmallMarginBottom"/>
+
+                                            <l:Grid defaultSpan="L12 M12 S12" hSpacing="0" vSpacing="0.5">
+                                                <Label text="User"/>
+                                                <HBox>
+                                                    <Link text="{detail>/selectedViolation/userName}" press=".onNavigateToUser"/>
+                                                    <Text text=" ({detail>/selectedViolation/userId})" class="sentinelMono sapUiSmallText"/>
+                                                </HBox>
+                                                <Label text="Department"/>
+                                                <Text text="{detail>/selectedViolation/dept}"/>
+                                                <Label text="Role A"/>
+                                                <Text text="{detail>/selectedViolation/roleA}" class="sentinelMono sentinelChip"/>
+                                                <Label text="Role B"/>
+                                                <Text text="{detail>/selectedViolation/roleB}" class="sentinelMono sentinelChip"/>
+                                                <Label text="Detected"/>
+                                                <Text text="{detail>/selectedViolation/detected}" class="sentinelMono"/>
+                                                <Label text="Scan"/>
+                                                <Text text="{detail>/selectedViolation/scan}" class="sentinelMono"/>
+                                                <Label text="Status"/>
+                                                <ObjectStatus
+                                                    text="{detail>/selectedViolation/status}"
+                                                    state="{path: 'detail>/selectedViolation/status', formatter: '.formatter.violationStatusState'}"/>
+                                            </l:Grid>
+
+                                            <Toolbar class="sapUiSmallMarginTop" style="padding:0">
+                                                <Button text="Acknowledge"   type="Emphasized" press=".onAcknowledge"/>
+                                                <Button text="Open Ticket"   press=".onOpenTicket"/>
+                                                <Button text="Mute Rule"     press=".onMuteRule"/>
+                                            </Toolbar>
+
+                                            <!-- AI Remediation -->
+                                            <Panel
+                                                headerText="AI Remediation Playbook"
+                                                expandable="true"
+                                                expanded="false"
+                                                class="sapUiSmallMarginTop">
+                                                <headerToolbar>
+                                                    <Toolbar>
+                                                        <Title text="AI Remediation Playbook" level="H6"/>
+                                                        <ToolbarSpacer/>
+                                                        <Button
+                                                            text="{= ${detail>/remediationLoading} ? 'Generating…' : 'Generate' }"
+                                                            icon="sap-icon://ai"
+                                                            type="Emphasized"
+                                                            press=".onGenerateRemediation"
+                                                            enabled="{= !${detail>/remediationLoading} }"/>
+                                                    </Toolbar>
+                                                </headerToolbar>
+                                                <content>
+                                                    <VBox class="sapUiSmallMargin">
+                                                        <BusyIndicator visible="{detail>/remediationLoading}" size="Small"/>
+                                                        <Text
+                                                            visible="{= !${detail>/remediationLoading} &amp;&amp; !${detail>/remediationText} }"
+                                                            text="Click Generate to produce step-by-step SAP remediation steps for this violation."/>
+                                                        <FormattedText
+                                                            visible="{= !${detail>/remediationLoading} &amp;&amp; !!${detail>/remediationText} }"
+                                                            htmlText="{detail>/remediationText}"/>
+                                                    </VBox>
+                                                </content>
+                                            </Panel>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                            </VBox>
+                        </ScrollContainer>
+                    </l:content>
+
+                </l:Splitter>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

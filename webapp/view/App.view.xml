@@ -1,0 +1,102 @@
+<mvc:View
+    controllerName="sentinel.security.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <tnt:ToolPage id="toolPage">
+
+        <!-- ── Shell Header ── -->
+        <tnt:header>
+            <tnt:ToolHeader>
+                <Button
+                    icon="sap-icon://menu2"
+                    type="Transparent"
+                    press=".onSideNavToggle"
+                    tooltip="Toggle Navigation"/>
+                <Image
+                    src="sap-icon://shield"
+                    width="32px" height="32px"
+                    class="sapUiTinyMarginBegin"/>
+                <Title
+                    text="Sentinel"
+                    level="H4"
+                    class="sapUiSmallMarginBegin"/>
+                <Text
+                    text="SAP Security Posture"
+                    class="sapUiSmallMarginBegin"
+                    wrapping="false"/>
+                <ToolbarSpacer/>
+                <SearchField
+                    placeholder="Search…"
+                    width="240px"
+                    search=".onGlobalSearch"/>
+                <Button icon="sap-icon://bell"    type="Transparent" press=".onNotifications" tooltip="Notifications"/>
+                <Button icon="sap-icon://action-settings" type="Transparent" press=".onSettings" tooltip="Settings"/>
+                <Avatar
+                    initials="MR"
+                    displaySize="XS"
+                    backgroundColor="Accent6"
+                    press=".onProfilePress"
+                    class="sapUiSmallMarginBegin"/>
+            </tnt:ToolHeader>
+        </tnt:header>
+
+        <!-- ── Side Navigation ── -->
+        <tnt:sideContent>
+            <tnt:SideNavigation
+                id="sideNavigation"
+                itemSelect=".onNavItemSelect">
+                <tnt:items>
+                    <tnt:NavigationListItem
+                        key="overview"
+                        text="Overview"
+                        icon="sap-icon://home"/>
+                    <tnt:NavigationListItem
+                        key="violations"
+                        text="Violations"
+                        icon="sap-icon://alert"/>
+                    <tnt:NavigationListItem
+                        key="users"
+                        text="Users &amp; Risk"
+                        icon="sap-icon://group"/>
+                    <tnt:NavigationListItem
+                        key="critical"
+                        text="Critical Roles"
+                        icon="sap-icon://warning2"/>
+                    <tnt:NavigationListItem
+                        key="compliance"
+                        text="Compliance"
+                        icon="sap-icon://checklist"/>
+                </tnt:items>
+                <tnt:fixedItems>
+                    <tnt:NavigationListItem
+                        key="rules"
+                        text="SoD Rules"
+                        icon="sap-icon://list"/>
+                    <tnt:NavigationListItem
+                        key="scans"
+                        text="Scan History"
+                        icon="sap-icon://pulse"/>
+                    <tnt:NavigationListItem
+                        key="alerts"
+                        text="Alerts"
+                        icon="sap-icon://bell"/>
+                    <tnt:NavigationListItem
+                        key="settings"
+                        text="Settings"
+                        icon="sap-icon://settings"/>
+                </tnt:fixedItems>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+
+        <!-- ── Main Content (Router target) ── -->
+        <tnt:mainContents>
+            <NavContainer id="appPages"/>
+        </tnt:mainContents>
+
+    </tnt:ToolPage>
+
+</mvc:View>

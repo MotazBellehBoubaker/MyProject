@@ -1,0 +1,67 @@
+/* Sentinel – Custom CSS
+   SAP Horizon theme overrides and project-specific styles */
+
+/* ── Mono font for IDs, codes, timestamps ── */
+.sentinelMono {
+    font-family: 'Courier New', 'Lucida Console', monospace !important;
+    font-size: 0.875rem !important;
+}
+
+/* ── Role/ID chip ── */
+.sentinelChip {
+    display: inline-block;
+    background: var(--sapField_Background, #f5f6f7);
+    border: 1px solid var(--sapField_BorderColor, #d9dbdd);
+    border-radius: 4px;
+    padding: 1px 6px;
+}
+
+/* ── Page body ── */
+.sentinelPage {
+    background: var(--sapBackgroundColor, #f5f6f7);
+}
+
+/* ── Co-pilot bubbles ── */
+.sentinelUserBubble {
+    background: var(--sapButton_Emphasized_Background, #0070f2) !important;
+    border-radius: 10px 0 10px 10px !important;
+    max-width: 320px;
+}
+
+.sentinelUserBubble .sapMText {
+    color: white !important;
+}
+
+.sentinelBotBubble {
+    border-radius: 0 10px 10px 10px !important;
+    max-width: 340px;
+}
+
+/* ── Suggestion buttons ── */
+.sentinelSuggBtn.sapMBtn .sapMBtnInner {
+    border-radius: 14px !important;
+    border: 1px solid var(--sapField_BorderColor, #d9dbdd) !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.75rem !important;
+}
+
+.sentinelSuggBtn.sapMBtn:hover .sapMBtnInner {
+    background: var(--sapButton_Emphasized_Background, #e8f2ff) !important;
+    border-color: var(--sapButton_Emphasized_Background, #0070f2) !important;
+}
+
+/* ── Pipeline stage card ── */
+.sentinelPipelineStage {
+    min-width: 80px;
+    text-align: center;
+}
+
+/* ── ToolPage side nav width ── */
+.sapTntToolPage .sapTntSideNavigation {
+    min-width: 200px;
+}
+
+/* ── GenericTile compact ── */
+.sapMGT {
+    min-width: 150px !important;
+}

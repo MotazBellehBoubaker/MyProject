@@ -1,0 +1,102 @@
+<mvc:View
+    controllerName="sentinel.security.controller.Scans"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page showNavButton="false" class="sentinelPage">
+        <customHeader>
+            <Bar>
+                <contentLeft><Title text="Scan History" level="H4"/></contentLeft>
+                <contentRight>
+                    <Button text="Export"       icon="sap-icon://download" press=".onExport"/>
+                    <Button text="Trigger Scan" icon="sap-icon://play"     press=".onTriggerScan" type="Emphasized"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiMediumMargin">
+
+                <!-- Latest pipeline -->
+                <Panel headerText="Latest Deployment · SAP CI/CD Service" expandable="true" expanded="true" class="sapUiSmallMarginBottom">
+                    <content>
+                        <VBox class="sapUiSmallMargin">
+                            <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                                <core:Icon src="sap-icon://source-code" class="sapUiSmallMarginEnd"/>
+                                <Text text="{scans>/pipeline/commit}" class="sentinelMono sapUiSmallMarginEnd"/>
+                                <Text text="{scans>/pipeline/message}" class="sapUiSmallMarginEnd"/>
+                                <ObjectStatus text="{scans>/pipeline/status}" state="Success" icon="sap-icon://accept"/>
+                            </HBox>
+                            <Text text="by {scans>/pipeline/author} · {scans>/pipeline/startedAt} · {scans>/pipeline/duration}" class="sapUiSmallMarginBottom sapUiSmallText"/>
+
+                            <!-- Pipeline stages -->
+                            <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom">
+                                <items>
+                                    <core:Fragment fragmentName="sentinel.security.fragment.PipelineStages" type="XML"/>
+                                </items>
+                            </HBox>
+
+                            <!-- Transport status -->
+                            <HBox alignItems="Center" class="sapUiSmallMarginTop">
+                                <ObjectStatus text="DEV" state="Success" icon="sap-icon://accept" class="sapUiSmallMarginEnd"/>
+                                <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginEnd"/>
+                                <ObjectStatus text="TEST · Pending approval" state="Warning" icon="sap-icon://pending" class="sapUiSmallMarginEnd"/>
+                                <core:Icon src="sap-icon://arrow-right" class="sapUiSmallMarginEnd"/>
+                                <ObjectStatus text="PROD · Waiting" state="None" icon="sap-icon://pending" class="sapUiSmallMarginEnd"/>
+                                <Button text="Promote to TEST" type="Emphasized" press=".onPromoteToTest" class="sapUiSmallMarginBegin"/>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Scan history table -->
+                <Panel headerText="Scan History">
+                    <content>
+                        <Table
+                            items="{scans>/scans}"
+                            mode="None"
+                            sticky="ColumnHeaders"
+                            growing="true"
+                            growingThreshold="10">
+                            <columns>
+                                <Column width="9rem">  <Text text="Scan ID"/>      </Column>
+                                <Column width="12rem"> <Text text="Started"/>      </Column>
+                                <Column width="6rem">  <Text text="Duration"/>     </Column>
+                                <Column>               <Text text="Trigger"/>      </Column>
+                                <Column width="5rem">  <Text text="Users"/>        </Column>
+                                <Column width="8rem">  <Text text="Violations"/>   </Column>
+                                <Column width="6rem">  <Text text="Risk"/>         </Column>
+                                <Column width="10rem"> <Text text="Compliance"/>   </Column>
+                                <Column width="7rem">  <Text text="Status"/>       </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier title="{scans>id}" class="sentinelMono"/>
+                                        <Text text="{scans>started}" class="sentinelMono"/>
+                                        <Text text="{scans>duration}" class="sentinelMono"/>
+                                        <Text text="{scans>trigger}"/>
+                                        <ObjectNumber number="{scans>users}"/>
+                                        <HBox>
+                                            <ObjectNumber number="{scans>violations}" emphasized="true"/>
+                                            <Text text=" ({scans>high}H {scans>medium}M {scans>low}L)" class="sapUiSmallText"/>
+                                        </HBox>
+                                        <ObjectNumber
+                                            number="{scans>risk}"
+                                            state="{path: 'scans>risk', formatter: '.formatter.riskScoreState'}"/>
+                                        <ProgressIndicator
+                                            percentValue="{scans>compliance}"
+                                            displayValue="{scans>compliance}%"
+                                            width="90px"
+                                            state="{path: 'scans>compliance', formatter: '.formatter.complianceColor'}"/>
+                                        <ObjectStatus text="{scans>status}" state="Success" icon="sap-icon://accept"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

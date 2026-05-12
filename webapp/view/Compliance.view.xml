@@ -1,0 +1,89 @@
+<mvc:View
+    controllerName="sentinel.security.controller.Compliance"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page showNavButton="false" class="sentinelPage">
+        <customHeader>
+            <Bar>
+                <contentLeft><Title text="Patch &amp; Baseline Compliance" level="H4"/></contentLeft>
+                <contentRight>
+                    <Button text="Re-evaluate Baseline" icon="sap-icon://refresh" press=".onReevaluate" type="Emphasized"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiMediumMargin">
+
+                <!-- Score tile -->
+                <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+                    <GenericTile
+                        header="Compliance Score"
+                        subheader="0–100 weighted baseline check"
+                        frameType="TwoByOne"
+                        class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <tileContent>
+                            <TileContent unit="/ 100">
+                                <content>
+                                    <NumericContent
+                                        value="{compliance>/score}"
+                                        valueColor="{path: 'compliance>/score', formatter: '.formatter.complianceColor'}"
+                                        withMargin="false"/>
+                                </content>
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+
+                    <GenericTile header="Compliant Components" frameType="OneByOne" class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <tileContent><TileContent><content><NumericContent value="7" valueColor="Good" withMargin="false"/></content></TileContent></tileContent>
+                    </GenericTile>
+                    <GenericTile header="Outdated Components" frameType="OneByOne" class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <tileContent><TileContent><content><NumericContent value="3" valueColor="Critical" withMargin="false"/></content></TileContent></tileContent>
+                    </GenericTile>
+                </HBox>
+
+                <!-- Warning for outdated -->
+                <MessageStrip
+                    text="SAP_BASIS, SAP_AP, and WEBCUIF are outdated. WEBCUIF is affected by CVE-2024-0112. Immediate patching recommended."
+                    type="Warning"
+                    showIcon="true"
+                    class="sapUiSmallMarginBottom"/>
+
+                <!-- Components table -->
+                <Panel headerText="SAP Components (CVERS extract)">
+                    <content>
+                        <Table
+                            items="{compliance>/components}"
+                            mode="None"
+                            sticky="ColumnHeaders">
+                            <columns>
+                                <Column width="12rem"> <Text text="Component"/>         </Column>
+                                <Column width="9rem">  <Text text="Current Version"/>   </Column>
+                                <Column width="9rem">  <Text text="Required Version"/>  </Column>
+                                <Column width="8rem">  <Text text="Status"/>            </Column>
+                                <Column>               <Text text="Risk Note"/>         </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem
+                                    highlight="{= ${compliance>status} === 'Outdated' ? 'Warning' : 'Success'}">
+                                    <cells>
+                                        <ObjectIdentifier title="{compliance>name}" class="sentinelMono"/>
+                                        <Text text="{compliance>current}" class="sentinelMono"/>
+                                        <Text text="{compliance>required}" class="sentinelMono"/>
+                                        <ObjectStatus
+                                            text="{compliance>status}"
+                                            state="{= ${compliance>status} === 'Outdated' ? 'Warning' : 'Success'}"
+                                            icon="{= ${compliance>status} === 'Outdated' ? 'sap-icon://alert' : 'sap-icon://accept'}"/>
+                                        <Text text="{compliance>risk}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

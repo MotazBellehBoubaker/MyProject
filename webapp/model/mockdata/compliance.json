@@ -1,0 +1,16 @@
+{
+  "score": 82,
+  "components": [
+    { "name": "SAP_BASIS",       "current": "756",        "required": "757",        "status": "Outdated",   "risk": "Missing 12 security notes for kernel exploits"       },
+    { "name": "SAP_ABA",         "current": "756",        "required": "756",        "status": "Compliant",  "risk": "Up to date"                                          },
+    { "name": "SAP_AP",          "current": "750.0012",   "required": "750.0018",   "status": "Outdated",   "risk": "6 missing security patches in FI module"             },
+    { "name": "ABAP_PLATFORM",   "current": "2023.0",     "required": "2023.0",     "status": "Compliant",  "risk": "Up to date"                                          },
+    { "name": "SAP_HR",          "current": "600.0088",   "required": "600.0088",   "status": "Compliant",  "risk": "Up to date"                                          },
+    { "name": "WEBCUIF",         "current": "740.0",      "required": "754.0",      "status": "Outdated",   "risk": "UI5 runtime CVE-2024-0112 unpatched"                 },
+    { "name": "SAP_FIN",         "current": "617.0",      "required": "617.0",      "status": "Compliant",  "risk": "Up to date"                                          },
+    { "name": "SAP_SCM",         "current": "700.0",      "required": "700.0",      "status": "Compliant",  "risk": "Up to date"                                          },
+    { "name": "SAP_HANA_DB",     "current": "2.00.070",   "required": "2.00.070",   "status": "Compliant",  "risk": "Up to date"                                          },
+    { "name": "SAP_BW",          "current": "750.0010",   "required": "750.0010",   "status": "Compliant",  "risk": "Up to date"                                          }
+  ],
+  "trend": [76, 75, 77, 78, 76, 79, 80, 78, 79, 80, 79, 82, 81, 82, 80, 79, 81, 82, 80, 82, 81, 82, 79, 80, 81, 82, 80, 79, 80, 82]
+}

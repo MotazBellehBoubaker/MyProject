@@ -1,0 +1,31 @@
+{
+  "scans": [
+    { "id": "SC-2026-031", "started": "2026-05-12 14:22", "duration": "2m 31s", "trigger": "Scheduled · 6h", "users": 4218, "violations": 18, "high": 7, "medium": 8, "low": 3, "risk": 78, "compliance": 82, "status": "Complete" },
+    { "id": "SC-2026-030", "started": "2026-05-12 08:22", "duration": "2m 28s", "trigger": "Scheduled · 6h", "users": 4216, "violations": 15, "high": 5, "medium": 7, "low": 3, "risk": 74, "compliance": 80, "status": "Complete" },
+    { "id": "SC-2026-029", "started": "2026-05-11 20:22", "duration": "2m 44s", "trigger": "Manual trigger",  "users": 4216, "violations": 16, "high": 6, "medium": 7, "low": 3, "risk": 76, "compliance": 79, "status": "Complete" },
+    { "id": "SC-2026-028", "started": "2026-05-11 14:22", "duration": "2m 19s", "trigger": "Scheduled · 6h", "users": 4215, "violations": 14, "high": 5, "medium": 6, "low": 3, "risk": 72, "compliance": 78, "status": "Complete" },
+    { "id": "SC-2026-027", "started": "2026-05-11 08:22", "duration": "2m 52s", "trigger": "Scheduled · 6h", "users": 4215, "violations": 17, "high": 7, "medium": 7, "low": 3, "risk": 80, "compliance": 76, "status": "Complete" },
+    { "id": "SC-2026-026", "started": "2026-05-11 02:22", "duration": "2m 38s", "trigger": "Scheduled · 6h", "users": 4214, "violations": 16, "high": 6, "medium": 7, "low": 3, "risk": 77, "compliance": 75, "status": "Complete" },
+    { "id": "SC-2026-025", "started": "2026-05-10 20:22", "duration": "2m 21s", "trigger": "Scheduled · 6h", "users": 4213, "violations": 13, "high": 4, "medium": 6, "low": 3, "risk": 70, "compliance": 77, "status": "Complete" },
+    { "id": "SC-2026-024", "started": "2026-05-10 14:22", "duration": "2m 34s", "trigger": "Scheduled · 6h", "users": 4213, "violations": 12, "high": 4, "medium": 5, "low": 3, "risk": 68, "compliance": 78, "status": "Complete" }
+  ],
+  "pipeline": {
+    "commit": "a3f8c21",
+    "message": "Add SoD engine v2.1",
+    "author": "m.reinholt",
+    "startedAt": "14:18",
+    "duration": "2m 31s",
+    "status": "Passed",
+    "stages": [
+      { "name": "Lint",   "duration": "18s",  "status": "passed" },
+      { "name": "Test",   "duration": "44s",  "status": "passed" },
+      { "name": "Build",  "duration": "52s",  "status": "passed" },
+      { "name": "Deploy", "duration": "37s",  "status": "passed" }
+    ],
+    "transport": {
+      "dev": "passed",
+      "test": "pending",
+      "prod": "waiting"
+    }
+  }
+}
