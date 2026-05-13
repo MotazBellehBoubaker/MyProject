@@ -117,107 +117,83 @@
                     </GenericTile>
                 </HBox>
 
-                <!-- Charts Row -->
-                <HBox wrap="Wrap" class="sapUiSmallMarginBottom">
+                <!-- Charts Row - single HTML block for perfect layout control -->
+                <core:HTML content="&lt;div style='display:flex;gap:16px;margin-bottom:16px;align-items:stretch'&gt;
 
-                    <!-- Risk Trend Chart (SVG) -->
-                    <Panel headerText="Risk Score Trend - Last 30 Scans" class="sapUiSmallMarginEnd" width="55%">
-                        <content>
-                            <VBox class="sapUiSmallMargin">
-                                <HTML content="&lt;svg width='100%' height='160' viewBox='0 0 600 160' preserveAspectRatio='none' style='display:block'&gt;
-                                &lt;defs&gt;
-                                    &lt;linearGradient id='rg' x1='0' y1='0' x2='0' y2='1'&gt;
-                                        &lt;stop offset='0%' stop-color='#0070f2' stop-opacity='0.2'/&gt;
-                                        &lt;stop offset='100%' stop-color='#0070f2' stop-opacity='0'/&gt;
-                                    &lt;/linearGradient&gt;
-                                    &lt;linearGradient id='vg' x1='0' y1='0' x2='0' y2='1'&gt;
-                                        &lt;stop offset='0%' stop-color='#bb0000' stop-opacity='0.15'/&gt;
-                                        &lt;stop offset='100%' stop-color='#bb0000' stop-opacity='0'/&gt;
-                                    &lt;/linearGradient&gt;
-                                &lt;/defs&gt;
-                                &lt;line x1='0' y1='40' x2='600' y2='40' stroke='#eee' stroke-width='1'/&gt;
-                                &lt;line x1='0' y1='80' x2='600' y2='80' stroke='#eee' stroke-width='1'/&gt;
-                                &lt;line x1='0' y1='120' x2='600' y2='120' stroke='#eee' stroke-width='1'/&gt;
-                                &lt;text x='4' y='38' font-size='9' fill='#aaa'&gt;100&lt;/text&gt;
-                                &lt;text x='4' y='78' font-size='9' fill='#aaa'&gt;75&lt;/text&gt;
-                                &lt;text x='4' y='118' font-size='9' fill='#aaa'&gt;50&lt;/text&gt;
-                                &lt;polygon points='20,118 60,110 100,114 140,100 180,105 220,90 260,95 300,80 340,85 380,70 420,75 460,65 500,60 540,55 580,48 580,160 20,160' fill='url(#rg)'/&gt;
-                                &lt;polyline points='20,118 60,110 100,114 140,100 180,105 220,90 260,95 300,80 340,85 380,70 420,75 460,65 500,60 540,55 580,48' fill='none' stroke='#0070f2' stroke-width='2.5' stroke-linejoin='round'/&gt;
-                                &lt;polygon points='20,135 60,128 100,132 140,120 180,124 220,112 260,116 300,104 340,108 380,96 420,100 460,88 500,84 540,78 580,72 580,160 20,160' fill='url(#vg)'/&gt;
-                                &lt;polyline points='20,135 60,128 100,132 140,120 180,124 220,112 260,116 300,104 340,108 380,96 420,100 460,88 500,84 540,78 580,72' fill='none' stroke='#bb0000' stroke-width='1.8' stroke-linejoin='round' stroke-dasharray='0'/&gt;
-                                &lt;circle cx='580' cy='48' r='5' fill='#0070f2'/&gt;
-                                &lt;circle cx='580' cy='72' r='4' fill='#bb0000'/&gt;
-                                &lt;/svg&gt;"/>
-                                <HBox class="sapUiTinyMarginTop">
-                                    <HBox alignItems="Center" class="sapUiSmallMarginEnd">
-                                        <HTML content="&lt;span style='width:14px;height:3px;background:#0070f2;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
-                                        <Text text="Risk Score" class="sapUiSmallText"/>
-                                    </HBox>
-                                    <HBox alignItems="Center">
-                                        <HTML content="&lt;span style='width:14px;height:3px;background:#bb0000;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
-                                        <Text text="Violations" class="sapUiSmallText"/>
-                                    </HBox>
-                                </HBox>
-                            </VBox>
-                        </content>
-                    </Panel>
+                    &lt;!-- Trend Chart --&gt;
+                    &lt;div style='flex:3;background:#fff;border:1px solid #d9dbdd;border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06)'&gt;
+                        &lt;div style='font-size:13px;font-weight:600;color:#1d2d3e;margin-bottom:12px'&gt;Risk Score &amp;amp; Violations Trend &amp;mdash; Last 30 Scans&lt;/div&gt;
+                        &lt;svg width='100%' height='150' viewBox='0 0 600 150' preserveAspectRatio='none' style='display:block'&gt;
+                            &lt;defs&gt;
+                                &lt;linearGradient id='rg2' x1='0' y1='0' x2='0' y2='1'&gt;
+                                    &lt;stop offset='0%' stop-color='%230070f2' stop-opacity='0.2'/&gt;
+                                    &lt;stop offset='100%' stop-color='%230070f2' stop-opacity='0'/&gt;
+                                &lt;/linearGradient&gt;
+                                &lt;linearGradient id='vg2' x1='0' y1='0' x2='0' y2='1'&gt;
+                                    &lt;stop offset='0%' stop-color='%23bb0000' stop-opacity='0.12'/&gt;
+                                    &lt;stop offset='100%' stop-color='%23bb0000' stop-opacity='0'/&gt;
+                                &lt;/linearGradient&gt;
+                            &lt;/defs&gt;
+                            &lt;line x1='0' y1='30' x2='600' y2='30' stroke='%23f0f0f0' stroke-width='1'/&gt;
+                            &lt;line x1='0' y1='70' x2='600' y2='70' stroke='%23f0f0f0' stroke-width='1'/&gt;
+                            &lt;line x1='0' y1='110' x2='600' y2='110' stroke='%23f0f0f0' stroke-width='1'/&gt;
+                            &lt;text x='2' y='28' font-size='9' fill='%23bbb' font-family='Arial'&gt;100&lt;/text&gt;
+                            &lt;text x='2' y='68' font-size='9' fill='%23bbb' font-family='Arial'&gt;75&lt;/text&gt;
+                            &lt;text x='2' y='108' font-size='9' fill='%23bbb' font-family='Arial'&gt;50&lt;/text&gt;
+                            &lt;polygon points='20,112 80,104 140,108 200,94 260,99 320,84 380,89 440,74 500,68 560,58 600,50 600,150 20,150' fill='url(%23rg2)'/&gt;
+                            &lt;polyline points='20,112 80,104 140,108 200,94 260,99 320,84 380,89 440,74 500,68 560,58 600,50' fill='none' stroke='%230070f2' stroke-width='2.5' stroke-linejoin='round'/&gt;
+                            &lt;polygon points='20,128 80,122 140,124 200,114 260,118 320,106 380,110 440,98 500,92 560,84 600,78 600,150 20,150' fill='url(%23vg2)'/&gt;
+                            &lt;polyline points='20,128 80,122 140,124 200,114 260,118 320,106 380,110 440,98 500,92 560,84 600,78' fill='none' stroke='%23bb0000' stroke-width='1.8' stroke-linejoin='round'/&gt;
+                            &lt;circle cx='600' cy='50' r='5' fill='%230070f2'/&gt;
+                            &lt;circle cx='600' cy='78' r='4' fill='%23bb0000'/&gt;
+                        &lt;/svg&gt;
+                        &lt;div style='display:flex;gap:16px;margin-top:8px'&gt;
+                            &lt;span style='display:flex;align-items:center;gap:5px;font-size:11px;color:%23555'&gt;&lt;span style='width:14px;height:3px;background:%230070f2;border-radius:2px;display:inline-block'&gt;&lt;/span&gt;Risk Score&lt;/span&gt;
+                            &lt;span style='display:flex;align-items:center;gap:5px;font-size:11px;color:%23555'&gt;&lt;span style='width:14px;height:3px;background:%23bb0000;border-radius:2px;display:inline-block'&gt;&lt;/span&gt;Violations&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
 
-                    <!-- Compliance Gauge -->
-                    <Panel headerText="Compliance Score" class="sapUiSmallMarginEnd" width="22%">
-                        <content>
-                            <VBox alignItems="Center" class="sapUiSmallMargin">
-                                <HTML content="&lt;svg width='160' height='110' viewBox='0 0 160 110'&gt;
-                                &lt;defs&gt;
-                                    &lt;linearGradient id='gg' x1='0%' y1='0%' x2='100%' y2='0%'&gt;
-                                        &lt;stop offset='0%' stop-color='#bb0000'/&gt;
-                                        &lt;stop offset='50%' stop-color='#e76500'/&gt;
-                                        &lt;stop offset='100%' stop-color='#188918'/&gt;
-                                    &lt;/linearGradient&gt;
-                                &lt;/defs&gt;
-                                &lt;path d='M20 90 A60 60 0 0 1 140 90' fill='none' stroke='#eee' stroke-width='14' stroke-linecap='round'/&gt;
-                                &lt;path d='M20 90 A60 60 0 0 1 140 90' fill='none' stroke='url(#gg)' stroke-width='14' stroke-linecap='round' stroke-dasharray='188.5' stroke-dashoffset='34'/&gt;
-                                &lt;text x='80' y='80' text-anchor='middle' font-size='26' font-weight='700' fill='#1d2d3e' font-family='Arial'&gt;82%&lt;/text&gt;
-                                &lt;text x='80' y='100' text-anchor='middle' font-size='10' fill='#888' font-family='Arial'&gt;Compliance Score&lt;/text&gt;
-                                &lt;text x='16' y='106' font-size='9' fill='#bb0000' font-family='Arial'&gt;0%&lt;/text&gt;
-                                &lt;text x='130' y='106' font-size='9' fill='#188918' font-family='Arial'&gt;100%&lt;/text&gt;
-                                &lt;/svg&gt;"/>
-                                <HBox class="sapUiTinyMarginTop">
-                                    <ObjectStatus text="7 Compliant" state="Success" class="sapUiSmallMarginEnd"/>
-                                    <ObjectStatus text="3 Outdated"  state="Warning"/>
-                                </HBox>
-                            </VBox>
-                        </content>
-                    </Panel>
+                    &lt;!-- Compliance Gauge --&gt;
+                    &lt;div style='flex:1;background:%23fff;border:1px solid %23d9dbdd;border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);display:flex;flex-direction:column;align-items:center'&gt;
+                        &lt;div style='font-size:13px;font-weight:600;color:%231d2d3e;margin-bottom:8px;text-align:center'&gt;Compliance Score&lt;/div&gt;
+                        &lt;svg width='160' height='100' viewBox='0 0 160 100'&gt;
+                            &lt;defs&gt;
+                                &lt;linearGradient id='gg2' x1='0%' y1='0%' x2='100%' y2='0%'&gt;
+                                    &lt;stop offset='0%' stop-color='%23bb0000'/&gt;
+                                    &lt;stop offset='50%' stop-color='%23e76500'/&gt;
+                                    &lt;stop offset='100%' stop-color='%23188918'/&gt;
+                                &lt;/linearGradient&gt;
+                            &lt;/defs&gt;
+                            &lt;path d='M18 82 A50 50 0 0 1 142 82' fill='none' stroke='%23eee' stroke-width='12' stroke-linecap='round'/&gt;
+                            &lt;path d='M18 82 A50 50 0 0 1 142 82' fill='none' stroke='url(%23gg2)' stroke-width='12' stroke-linecap='round' stroke-dasharray='157' stroke-dashoffset='28'/&gt;
+                            &lt;text x='80' y='72' text-anchor='middle' font-size='24' font-weight='700' fill='%231d2d3e' font-family='Arial'&gt;82%&lt;/text&gt;
+                            &lt;text x='14' y='96' font-size='9' fill='%23bb0000' font-family='Arial'&gt;0%&lt;/text&gt;
+                            &lt;text x='132' y='96' font-size='9' fill='%23188918' font-family='Arial'&gt;100%&lt;/text&gt;
+                        &lt;/svg&gt;
+                        &lt;div style='display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;justify-content:center'&gt;
+                            &lt;span style='font-size:11px;padding:2px 8px;background:%23e8f7e8;color:%231a7a1a;border-radius:10px;font-weight:600'&gt;7 Compliant&lt;/span&gt;
+                            &lt;span style='font-size:11px;padding:2px 8px;background:%23fff4e0;color:%23c65000;border-radius:10px;font-weight:600'&gt;3 Outdated&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
 
-                    <!-- Violation breakdown donut -->
-                    <Panel headerText="Severity Breakdown" width="22%">
-                        <content>
-                            <VBox alignItems="Center" class="sapUiSmallMargin">
-                                <HTML content="&lt;svg width='130' height='130' viewBox='0 0 130 130'&gt;
-                                &lt;circle cx='65' cy='65' r='50' fill='none' stroke='#bb0000' stroke-width='22' stroke-dasharray='88 226' stroke-dashoffset='0'/&gt;
-                                &lt;circle cx='65' cy='65' r='50' fill='none' stroke='#e76500' stroke-width='22' stroke-dasharray='100 226' stroke-dashoffset='-88'/&gt;
-                                &lt;circle cx='65' cy='65' r='50' fill='none' stroke='#188918' stroke-width='22' stroke-dasharray='38 226' stroke-dashoffset='-188'/&gt;
-                                &lt;text x='65' y='60' text-anchor='middle' font-size='20' font-weight='700' fill='#1d2d3e' font-family='Arial'&gt;18&lt;/text&gt;
-                                &lt;text x='65' y='76' text-anchor='middle' font-size='10' fill='#888' font-family='Arial'&gt;total&lt;/text&gt;
-                                &lt;/svg&gt;"/>
-                                <VBox>
-                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                        <HTML content="&lt;span style='width:10px;height:10px;border-radius:50%;background:#bb0000;display:inline-block;margin-right:6px'&gt;&lt;/span&gt;"/>
-                                        <Text text="7 High" class="sapUiSmallText"/>
-                                    </HBox>
-                                    <HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                                        <HTML content="&lt;span style='width:10px;height:10px;border-radius:50%;background:#e76500;display:inline-block;margin-right:6px'&gt;&lt;/span&gt;"/>
-                                        <Text text="8 Medium" class="sapUiSmallText"/>
-                                    </HBox>
-                                    <HBox alignItems="Center">
-                                        <HTML content="&lt;span style='width:10px;height:10px;border-radius:50%;background:#188918;display:inline-block;margin-right:6px'&gt;&lt;/span&gt;"/>
-                                        <Text text="3 Low" class="sapUiSmallText"/>
-                                    </HBox>
-                                </VBox>
-                            </VBox>
-                        </content>
-                    </Panel>
-                </HBox>
+                    &lt;!-- Severity Donut --&gt;
+                    &lt;div style='flex:1;background:%23fff;border:1px solid %23d9dbdd;border-radius:8px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);display:flex;flex-direction:column;align-items:center'&gt;
+                        &lt;div style='font-size:13px;font-weight:600;color:%231d2d3e;margin-bottom:8px;text-align:center'&gt;Severity Breakdown&lt;/div&gt;
+                        &lt;svg width='120' height='120' viewBox='0 0 130 130'&gt;
+                            &lt;circle cx='65' cy='65' r='48' fill='none' stroke='%23bb0000' stroke-width='20' stroke-dasharray='85 216' stroke-dashoffset='0'/&gt;
+                            &lt;circle cx='65' cy='65' r='48' fill='none' stroke='%23e76500' stroke-width='20' stroke-dasharray='96 216' stroke-dashoffset='-85'/&gt;
+                            &lt;circle cx='65' cy='65' r='48' fill='none' stroke='%23188918' stroke-width='20' stroke-dasharray='35 216' stroke-dashoffset='-181'/&gt;
+                            &lt;text x='65' y='60' text-anchor='middle' font-size='20' font-weight='700' fill='%231d2d3e' font-family='Arial'&gt;18&lt;/text&gt;
+                            &lt;text x='65' y='76' text-anchor='middle' font-size='10' fill='%23888' font-family='Arial'&gt;violations&lt;/text&gt;
+                        &lt;/svg&gt;
+                        &lt;div style='margin-top:4px'&gt;
+                            &lt;div style='display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:3px'&gt;&lt;span style='width:10px;height:10px;border-radius:50%;background:%23bb0000;display:inline-block'&gt;&lt;/span&gt;7 High&lt;/div&gt;
+                            &lt;div style='display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:3px'&gt;&lt;span style='width:10px;height:10px;border-radius:50%;background:%23e76500;display:inline-block'&gt;&lt;/span&gt;8 Medium&lt;/div&gt;
+                            &lt;div style='display:flex;align-items:center;gap:6px;font-size:11px'&gt;&lt;span style='width:10px;height:10px;border-radius:50%;background:%23188918;display:inline-block'&gt;&lt;/span&gt;3 Low&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                &lt;/div&gt;"/>
 
                 <!-- AI Briefing -->
                 <Panel class="sapUiSmallMarginBottom">

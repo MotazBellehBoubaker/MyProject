@@ -37,7 +37,7 @@
                 <Panel headerText="Scan Trends - Risk Score and Violations over Time" class="sapUiSmallMarginBottom">
                     <content>
                         <VBox class="sapUiSmallMargin">
-                            <HTML content="&lt;svg width='100%' height='180' viewBox='0 0 700 180' preserveAspectRatio='none' style='display:block'&gt;
+                            <core:HTML content="&lt;svg width='100%' height='180' viewBox='0 0 700 180' preserveAspectRatio='none' style='display:block'&gt;
                             &lt;defs&gt;
                                 &lt;linearGradient id='sg' x1='0' y1='0' x2='0' y2='1'&gt;
                                     &lt;stop offset='0%' stop-color='#0070f2' stop-opacity='0.2'/&gt;
@@ -60,11 +60,11 @@
                             &lt;/svg&gt;"/>
                             <HBox class="sapUiTinyMarginTop">
                                 <HBox alignItems="Center" class="sapUiSmallMarginEnd">
-                                    <HTML content="&lt;span style='width:14px;height:3px;background:#0070f2;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
+                                    <core:HTML content="&lt;span style='width:14px;height:3px;background:#0070f2;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
                                     <Text text="Risk Score" class="sapUiSmallText"/>
                                 </HBox>
                                 <HBox alignItems="Center">
-                                    <HTML content="&lt;span style='width:14px;height:3px;background:#bb0000;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
+                                    <core:HTML content="&lt;span style='width:14px;height:3px;background:#bb0000;display:inline-block;border-radius:2px;margin-right:5px'&gt;&lt;/span&gt;"/>
                                     <Text text="Violations" class="sapUiSmallText"/>
                                 </HBox>
                             </HBox>
